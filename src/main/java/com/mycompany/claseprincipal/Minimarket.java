@@ -14,23 +14,39 @@ private ArrayList<Producto> inventario = new ArrayList<>();
         inventario.add(producto);
     }
 
-    public void eliminarProductoPorCodigo(String Códigodelproducto) {
-    
+    public boolean eliminarProductoPorCodigo(String codigo) {
+        return inventario.removeIf(producto -> producto.getCodigoproducto().equals(codigo));
     }
 
-    public Producto buscarProductoPorCodigo(String Códigodelproducto) {
-        
+    public Producto buscarProductoPorCodigo(String codigo) {
+        for (Producto producto : inventario) {
+            if (producto.getCodigoproducto().equals(codigo)) {
+                return producto;
+            }
+        }
         return null;
+    }
+
+    public ArrayList<Producto> getPorTipo(String tipo) {
+        ArrayList<Producto> resultado = new ArrayList<>();
+        for (Producto producto : inventario) {
+            if (producto.getTipo().equalsIgnoreCase(tipo)) {
+                resultado.add(producto);
+            }
+        }
+        return resultado;
     }
 
     public ArrayList<Producto> getLacteos() {
-       
-        return null;
+        return getPorTipo("Lácteos");
     }
 
     public ArrayList<Producto> getPasta() {
-       
-        return null;
+        return getPorTipo("Pastas");
+    }
+
+    public int cantidadProductos() {
+        return inventario.size();
     }
 
     public void mostrarProductos() {
